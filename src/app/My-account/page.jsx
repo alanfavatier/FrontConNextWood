@@ -1,11 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import PerfilUsuario from "@/Components/PerfilUsuario/PerfilUsuario";
-import HistorialCompras from "@/Components/HistorialCompras/HistorialCompras";
-import MisReseñas from "@/Components/MisReseñas/MisReseñas";
-import MisFavoritos from "@/Components/MisFavoritos/MisFavoritos";
-import InfoPerfil from "@/Components/InfoPerfil/InfoPerfil";
-import AuthGuard from "@/components/authGuard";
+
+import PerfilUsuario from "../../components/PerfilUsuario/PerfilUsuario";
+import HistorialCompras from "../../components/HistorialCompras/HistorialCompras";
+import MisReseñas from "../../components/MisReseñas/MisReseñas";
+import MisFavoritos from "../../components/MisFavoritos/MisFavoritos";
+import InfoPerfil from "../../components/InfoPerfil/InfoPerfil";
+import AuthGuard from "../../components/authGuard";
 
 function Perfil() {
   const [componenteActual, setComponenteActual] = useState("info");
