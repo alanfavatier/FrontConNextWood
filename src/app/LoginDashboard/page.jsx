@@ -8,7 +8,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FaGoogle } from "react-icons/fa";
 import { faUser, faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { toast, Toaster } from "react-hot-toast";
-import { WelcomeMessageLogin } from "../../components/WelcomeMessage/WelcomeMessage";
+import {
+  WelcomeMessage,
+  WelcomeMessageLogin,
+} from "../../components/WelcomeMessage/WelcomeMessage";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { signIn } from "next-auth/react"; // Asegúrate de importar signIn
