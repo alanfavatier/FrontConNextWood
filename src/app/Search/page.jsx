@@ -1,10 +1,7 @@
-"use client"; // Asegúrate de que este archivo sea un componente de cliente
-
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Filtros from "../../components/Filtros/Filtros";
-import Buscador from "../../components/Buscador/Buscador";
 import { data } from "../../../public/data";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
@@ -128,7 +125,7 @@ const Search = () => {
                     </h2>
                     <div className="flex justify-center items-center py-2 px-4">
                       <img
-                        src={product.image[0]}
+                        src={`/images/${product.image[0]}`} // Ruta actualizada para la carpeta public
                         alt={product.title}
                         className="object-contain h-48 w-full transition-all duration-200"
                       />
