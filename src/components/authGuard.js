@@ -1,17 +1,16 @@
 "use client";
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-
-import { useSelector } from 'react-redux';
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const AuthGuard = (WrappedComponent) => {
-  return (props) => {
+  const WithAuthGuard = (props) => {
     const router = useRouter();
     const user = useSelector((state) => state.useReducer.user); // Ajusta el selector según tu slice
 
     useEffect(() => {
       if (!user) {
-        router.push('/Sign-in');
+        router.push("/Sign-in");
       }
     }, [user, router]);
 
@@ -22,6 +21,12 @@ const AuthGuard = (WrappedComponent) => {
 
     return <WrappedComponent {...props} />;
   };
+
+  WithAuthGuard.displayName = `WithAuthGuard(${
+    WrappedComponent.displayName || WrappedComponent.name || "Component"
+  })`;
+
+  return WithAuthGuard;
 };
 
 export default AuthGuard;
