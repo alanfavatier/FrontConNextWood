@@ -40,7 +40,17 @@ const Products = ({ category, data }) => {
       )
       .filter((product) => finish === "todos" || product.finish === finish)
       .filter((product) => size === "todos" || product.size === size);
-  }, [category, data, searchQuery, priceRange, material, finish, size]);
+  }, [
+    category,
+    productos,
+    searchQuery,
+    priceRange,
+    material,
+    finish,
+    size,
+    minPrice,
+    maxPrice,
+  ]);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -72,7 +82,7 @@ const Products = ({ category, data }) => {
               </>
             ) : (
               <h2 className="text-3xl font-bold mb-4">
-                <span>No se encontraron resultados</span>
+                No se encontraron resultados
               </h2>
             )}
           </div>

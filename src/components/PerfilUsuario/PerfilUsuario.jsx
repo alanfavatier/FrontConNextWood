@@ -270,65 +270,83 @@ export default PerfilUsuario; */
 import React, { useState } from "react";
 
 const PerfilUsuario = () => {
-  const [editable, setEditable] = useState(false); // Define editable y su función setter
+  const [editable, setEditable] = useState(false);
+  const [userData, setUserData] = useState({
+    name: "",
+    lastname: "",
+    email: "",
+    address: "",
+  });
 
   const handleChange = (e) => {
-    // Función para manejar cambios en los inputs
-    // Implementa lógica para actualizar el estado según sea necesario
+    const { name, value } = e.target;
+    setUserData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSave = () => {
+    // Aquí deberías enviar los datos actualizados al servidor
+    console.log("Datos guardados", userData);
+    setEditable(false);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center mt-[-64px]">
+    <div className="min-h-screen flex items-center justify-center mt-8">
       <div
         id="user-form"
-        className="bg-white p-4 rounded shadow-xl w-96 flex flex-col relative top-[-100px] left-[-50px]"
+        className="bg-white p-6 rounded shadow-xl w-96 flex flex-col"
       >
         <div className="flex justify-center items-center mb-4 cursor-pointer">
           Hola
         </div>
-        <h1 className="text-2xl font-bold mb-4 text-center font-serif mx-auto mt-4">
+        <h1 className="text-2xl font-bold mb-4 text-center font-serif">
           Mis datos
         </h1>
+
         <div className="mb-4 flex items-center">
           <label
-            htmlFor="nombre"
+            htmlFor="name"
             className="block text-gray-700 text-sm font-semibold mb-2 mr-2"
           >
             Nombre:
           </label>
           <input
-            autoFocus={editable} // Usa editable aquí
-            className={`ml-1 transition-all duration-300 ease-in-out ${
-              editable ? "transform scale-100 hover:scale-105 " : ""
-            } mr-10 bg-gray-50 border ${
-              editable ? "border-teal-500" : "border-gray-800"
-            } text-black-500 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-teal-500 dark:focus:border-teal-500`}
+            autoFocus={editable}
+            name="name"
+            value={userData.name}
+            className={`transition-all duration-300 ease-in-out ${
+              editable ? "transform scale-100 hover:scale-105" : ""
+            } bg-gray-50 border ${
+              editable ? "border-teal-500" : "border-gray-300"
+            } text-black text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2`}
             type="text"
-            id="name"
             onChange={handleChange}
             disabled={!editable}
-            placeholder="Name"
+            placeholder="Nombre"
           />
         </div>
 
         <div className="mb-4 flex items-center">
           <label
-            htmlFor="apellido"
+            htmlFor="lastname"
             className="block text-gray-700 text-sm font-semibold mb-2 mr-2"
           >
             Apellido:
           </label>
           <input
-            className={`ml-1 transition-all duration-300 ease-in-out ${
+            name="lastname"
+            value={userData.lastname}
+            className={`transition-all duration-300 ease-in-out ${
               editable ? "transform scale-100 hover:scale-105" : ""
-            } mr-10 bg-gray-50 border ${
+            } bg-gray-50 border ${
               editable ? "border-teal-500" : "border-gray-300"
-            } text-black-500 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-teal-500 dark:focus:border-teal-500`}
+            } text-black text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2`}
             type="text"
-            id="lastname"
             onChange={handleChange}
             disabled={!editable}
-            placeholder="Lastname"
+            placeholder="Apellido"
           />
         </div>
 
@@ -340,13 +358,14 @@ const PerfilUsuario = () => {
             Email:
           </label>
           <input
-            className={`ml-1 transition-all duration-300 ease-in-out ${
+            name="email"
+            value={userData.email}
+            className={`transition-all duration-300 ease-in-out ${
               editable ? "transform scale-100 hover:scale-105" : ""
-            } mr-10 bg-gray-50 border ${
+            } bg-gray-50 border ${
               editable ? "border-teal-500" : "border-gray-300"
-            } text-black-500 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-teal-500 dark:focus:border-teal-500`}
+            } text-black text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2`}
             type="email"
-            id="email"
             onChange={handleChange}
             disabled={!editable}
             placeholder="Email"
@@ -354,17 +373,21 @@ const PerfilUsuario = () => {
         </div>
 
         <div className="mb-4 flex items-center">
-          <label className="block text-gray-700 text-sm font-semibold mb-2 mr-2">
+          <label
+            htmlFor="address"
+            className="block text-gray-700 text-sm font-semibold mb-2 mr-2"
+          >
             Dirección:
           </label>
           <input
-            className={`ml-1 transition-all duration-300 ease-in-out ${
+            name="address"
+            value={userData.address}
+            className={`transition-all duration-300 ease-in-out ${
               editable ? "transform scale-100 hover:scale-105" : ""
-            } mr-10 bg-gray-50 border ${
+            } bg-gray-50 border ${
               editable ? "border-teal-500" : "border-gray-300"
-            } text-black-500 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-teal-500 dark:focus:border-teal-500`}
+            } text-black text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2`}
             type="text"
-            id="address"
             onChange={handleChange}
             disabled={!editable}
             placeholder="Dirección"
@@ -377,20 +400,21 @@ const PerfilUsuario = () => {
         </p>
 
         <div className="flex justify-center items-center">
-          <button
-            className="bg-secondary  text-white font-bold py-2 px-4 rounded transition-transform duration-300 hover:scale-110 hover:text-primary cursor-pointer"
-            onClick={() => setEditable(true)} // Habilita la edición
-            disabled={editable}
-          >
-            Editar
-          </button>
-          <button
-            className="text-secondary font-semibold py-2 px-4 transition-transform duration-300 hover:scale-110 hover:text-secondary cursor-pointer"
-            onClick={() => setEditable(false)} // Deshabilita la edición
-            disabled={!editable}
-          >
-            Guardar
-          </button>
+          {editable ? (
+            <button
+              className="bg-teal-500 text-white font-bold py-2 px-4 rounded transition-transform duration-300 hover:scale-110 hover:text-white cursor-pointer"
+              onClick={handleSave}
+            >
+              Guardar
+            </button>
+          ) : (
+            <button
+              className="bg-teal-500 text-white font-bold py-2 px-4 rounded transition-transform duration-300 hover:scale-110 hover:text-white cursor-pointer"
+              onClick={() => setEditable(true)}
+            >
+              Editar
+            </button>
+          )}
         </div>
       </div>
     </div>
