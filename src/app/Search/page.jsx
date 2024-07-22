@@ -1,3 +1,5 @@
+"use client"; // Asegúrate de que este archivo sea un componente de cliente
+
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
