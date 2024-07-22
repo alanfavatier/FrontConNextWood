@@ -266,7 +266,6 @@ const PerfilUsuario = () => {
   );
 };
 export default PerfilUsuario; */
-
 import React, { useState } from "react";
 
 const PerfilUsuario = () => {
@@ -396,7 +395,7 @@ const PerfilUsuario = () => {
 
         <p className="text-gray-600 text-sm mb-2">
           ¿Necesitas actualizar tu información? Haz clic en{" "}
-          <strong>"Editar"</strong> para empezar.
+          <strong>&quot;Editar&quot;</strong> para empezar.
         </p>
 
         <div className="flex justify-center items-center">
