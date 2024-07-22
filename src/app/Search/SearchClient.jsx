@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import Filtros from "../../components/Filtros/Filtros";
 import { data } from "../../../public/data";
@@ -127,7 +128,7 @@ const SearchClient = () => {
                     </h2>
                     <div className="flex justify-center items-center py-2 px-4">
                       <img
-                        src={`/images/${product.image[0]}`} // Ruta actualizada para la carpeta public
+                        src={product.image[0]}
                         alt={product.title}
                         className="object-contain h-48 w-full transition-all duration-200"
                       />
