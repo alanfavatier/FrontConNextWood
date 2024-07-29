@@ -7,16 +7,12 @@ import Buscador from "@/components/Buscador/Buscador";
 import { useState } from "react";
 import Link from "next/link";
 
-const page = () => {
-
+const Page = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const user = useAppSelector((state) => state.useReducer.user)
-
+  const user = useAppSelector((state) => state.useReducer.user);
 
   const vendedorId = parseInt(user?._id);
-  const productos = data.products
-
-
+  const productos = data.products;
 
   return (
     <div className="p-6 items-center">
@@ -55,13 +51,14 @@ const page = () => {
                     <td className="p-2 text-center">${item.price}</td>
                     <td className="p-2 text-center">{item.stock}</td>
                     <td className="p-2 text-center">
-                     
-                        <button className="bg-blue-500 text-white rounded px-2 py-1 hover:bg-blue-800 focus:outline-none cursor-pointer">
-                          Validar
-                        </button>
+                      <button className="bg-blue-500 text-white rounded px-2 py-1 hover:bg-blue-800 focus:outline-none cursor-pointer">
+                        Validar
+                      </button>
                     </td>
                     <td className="p-2 text-center">
-                      <button className="bg-red-500 text-white rounded px-2 py-1 hover:bg-red-800 focus:outline-none cursor-pointer">Desabilitar</button>
+                      <button className="bg-red-500 text-white rounded px-2 py-1 hover:bg-red-800 focus:outline-none cursor-pointer">
+                        Desabilitar
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -78,4 +75,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

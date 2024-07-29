@@ -15,7 +15,11 @@ import ProductSlider from "../../../components/ProducSlider/ProductSlider";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addItem, getCartData } from "@/redux/features/cart";
 import Link from "next/link";
-import { addFavorite, getlogindata, removeFavorite } from "@/redux/features/userSlice";
+import {
+  addFavorite,
+  getlogindata,
+  removeFavorite,
+} from "@/redux/features/userSlice";
 
 const Details = ({ params }) => {
   //dispatch
@@ -34,10 +38,24 @@ const Details = ({ params }) => {
   const productos = data.products;
   const product = productos.find((product) => product._id === productId);
 
+  if (!product) {
+    return <div>Producto no encontrado</div>;
+  }
+
   //Manejar la imagen seleccionada y el hover
   const [selectedImage, setSelectedImage] = useState(product.image[0]);
   const [hoveredImage, setHoveredImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [isFavorite, setIsFavorite] = useState(userFavorites || []);
+
+  useEffect(() => {
+    dispatch(getCartData());
+    dispatch(getlogindata());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setIsFavorite(userFavorites || []);
+  }, [userFavorites]);
 
   const handleQuantityChange = (event) => {
     const value = parseInt(event.target.value);
@@ -45,10 +63,6 @@ const Details = ({ params }) => {
       setQuantity(value);
     }
   };
-
-  if (!product) {
-    return <div>Producto no encontrado</div>;
-  }
 
   //agregar productos al carrito
   const handleAddToCart = () => {
@@ -89,25 +103,15 @@ const Details = ({ params }) => {
     (vendedor) => vendedor._id === product.idvendedor
   );
 
-  //favoritos
-  const [isFavorite, setIsFavorite] = useState(user?.favorites || []);
-
-  useEffect(() => {
-    setIsFavorite(userFavorites || []);
-  }, [user]);
-
-  useEffect(() => {
-    dispatch(getCartData());
-    dispatch(getlogindata());
-  }, [dispatch]);
-
   const handleToggleFavorite = () => {
     if (user) {
-      const productId = product._id; 
-  
+      const productId = product._id;
+
       if (isFavorite.includes(productId)) {
         dispatch(removeFavorite(productId));
-        setIsFavorite((prevFavorites) => prevFavorites.filter(id => id !== productId));
+        setIsFavorite((prevFavorites) =>
+          prevFavorites.filter((id) => id !== productId)
+        );
         toast.success("Producto eliminado de tus favoritos.");
       } else {
         dispatch(addFavorite(productId));
@@ -116,9 +120,6 @@ const Details = ({ params }) => {
       }
     }
   };
-  
-
-  
 
   return (
     <>
@@ -134,25 +135,6 @@ const Details = ({ params }) => {
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
               />
             </div>
-            {/* <div className="md:h-full justify-between flex flex-row md:flex-col ">
-              {product.image.map((src, index) => (
-                <div
-                  key={index}
-                  className="relative w-20 h-24 items-start cursor-pointer rounded-md border-solid border-2 border-primary"
-                  onClick={() => setSelectedImage(src)}
-                  onMouseEnter={() => setHoveredImage(src)}
-                  onMouseLeave={() => setHoveredImage(false)}
-                >
-                  <Image
-                    src={src}
-                    alt={`Imagen del producto ${index + 1}`}
-                    layout="fill"
-                    objectFit="contain"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 20vw, 100px"
-                  />
-                </div>
-              ))}
-            </div> */}
           </div>
           <div className="flex flex-col items-start text-start py-4 px-8 md:px-4">
             <h2 className="text-xl font-bold ">Descripcion del producto</h2>
@@ -160,35 +142,30 @@ const Details = ({ params }) => {
           </div>
         </div>
 
-        {/* Informacion del producto */}
         <div className="flex flex-col items-start text-start py-4 px-8 gap-6">
           <h2 className="text-4xl font-bold ">{product.title}</h2>
           <div className="flex items-center gap-4">
-          
-          {user && (
-            <button
-            onClick={handleToggleFavorite}
-              className={`
-      flex justify-center items-center text-center 
-      transition duration-300 ease-in-out`}
-            >
-              {isFavorite.includes(product._id) ? (
-                <BsHeartFill className="text-2xl text-red-700" />
-              ) : (
-                <BsHeart className="text-2xl text-red-700" />
-              )}
-            </button>
-          )}
-     <p>{product.rating}</p>
+            {user && (
+              <button
+                onClick={handleToggleFavorite}
+                className="flex justify-center items-center text-center transition duration-300 ease-in-out"
+              >
+                {isFavorite.includes(product._id) ? (
+                  <BsHeartFill className="text-2xl text-red-700" />
+                ) : (
+                  <BsHeart className="text-2xl text-red-700" />
+                )}
+              </button>
+            )}
+            <p>{product.rating}</p>
           </div>
-          {/* Icono de corazón para agregar a favoritos */}
 
           <Link href={`/Profile/${vendedor?._id}`}>
             <p className="text-xl ">
-              Perfil del vendedor: {""}
-               <span className="text-secondary font-bold underline ">
-             {vendedor?.name}
-               </span>
+              Perfil del vendedor:{" "}
+              <span className="text-secondary font-bold underline ">
+                {vendedor?.name}
+              </span>
             </p>
           </Link>
           <p className="text-2xl font-bold text-secondary">$ {product.price}</p>
@@ -200,7 +177,7 @@ const Details = ({ params }) => {
           ) : (
             <p className="text-xl font-extralight">❌ sin stock</p>
           )}
-     
+
           {product.stock > 0 && (
             <input
               type="number"
@@ -221,8 +198,6 @@ const Details = ({ params }) => {
           <Toaster position="top-center" />
         </div>
       </div>
-
-      {/* Relacionados */}
 
       <div className="mb-10 px-8 md:px-20">
         <h2 className="text-3xl font-bold mb-4">Relacionados</h2>
