@@ -1,29 +1,20 @@
-"use client";
-
-import { data } from "../../../../public/data";
-import Image from "next/image";
-import { useAppSelector } from "../../../redux/hooks";
-import Buscador from "../../../components/Buscador/Buscador";
-import { useState } from "react";
-import Link from "next/link";
-
 const Page = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const user = useAppSelector((state) => state.useReducer.user);
 
-  const vendedorId = parseInt(user?._id);
+  if (!user) {
+    return <p>Cargando usuario...</p>; // O cualquier mensaje de carga/placeholder
+  }
+
+  const vendedorId = parseInt(user._id);
   const vendedor = data.users.find((vendedor) => vendedor._id === vendedorId);
   const products = data.products.filter(
     (product) => product.idvendedor === vendedorId
   );
 
-  console.log("products", products);
-
   const filteredProducts = products.filter((product) =>
     product.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
-  console.log("filteredProducts", filteredProducts);
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
