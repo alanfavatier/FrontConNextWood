@@ -1,8 +1,11 @@
 "use client";
+
+import React, { useEffect } from "react";
 import { useAppSelector } from "../../redux/hooks";
-import React, { useDispatch } from "react";
+import { useDispatch } from "react-redux";
 import VendedorPage from "../../components/Dashboard/VendedorPage";
 import AdminPage from "../../components/Dashboard/AdminPage";
+import { getlogindata } from "../../redux/features/userSlice";
 
 const Page = () => {
   const user = useAppSelector((state) => state.useReducer.user);
