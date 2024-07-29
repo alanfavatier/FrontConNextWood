@@ -62,7 +62,7 @@ const PerfilUsuario = () => {
       imageSelect.name && formData.append("name", imageSelect.name);
 
       const respuesta = await axios.post(
-        `https://pf-15a.up.railway.app/api/photos`,
+        https://pf-15a.up.railway.app/api/photos,
         formData,
         {
           headers: {
@@ -73,14 +73,14 @@ const PerfilUsuario = () => {
       console.log("respuesta", respuesta);
       console.log("form Data", formData);
 
-      const imagen = `https://pf-15a.up.railway.app/api/photos/${respuesta.data.id}`;
+      const imagen = https://pf-15a.up.railway.app/api/photos/${respuesta.data.id};
       console.log("imagen id", imagen);
       setUserData({
         ...userData,
         avatar: imagen
       })
       if (imagen) {
-        const response = await axios.put(`https://pf-15a.up.railway.app/api/users/${id}`, {
+        const response = await axios.put(https://pf-15a.up.railway.app/api/users/${id}, {
           name: userData.name,
           lastname: userData.lastname,
           email: userData.email,
@@ -89,7 +89,7 @@ const PerfilUsuario = () => {
         }, {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorageToken}`
+            'Authorization': Bearer ${localStorageToken}
           }
         });
 
@@ -266,44 +266,86 @@ const PerfilUsuario = () => {
   );
 };
 export default PerfilUsuario; */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useAppSelector } from "../../redux/hooks";
+import toast, { Toaster } from "react-hot-toast";
 
 const PerfilUsuario = () => {
+  const user = useAppSelector((state) => state.useReducer.user);
+
+  // Estados locales inicializados con los datos del usuario logueado
   const [editable, setEditable] = useState(false);
-  const [userData, setUserData] = useState({
-    name: "",
-    lastname: "",
-    email: "",
-    address: "",
-  });
+  const [name, setName] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
+
+  // Cargar datos desde localStorage cuando el componente se monte
+  useEffect(() => {
+    const savedData = JSON.parse(localStorage.getItem("user"));
+    if (savedData) {
+      setName(savedData.name || "");
+      setLastname(savedData.lastname || "");
+      setEmail(savedData.email || "");
+      setStreet(savedData.street || "");
+      setCity(savedData.city || "");
+      setState(savedData.state || "");
+      setZip(savedData.zip || "");
+    } else if (user) {
+      setName(user.name);
+      setLastname(user.lastname ? user.lastname.trim() : "");
+      setEmail(user.email);
+      if (user.address) {
+        setStreet(user.address.street);
+        setCity(user.address.city);
+        setState(user.address.state);
+        setZip(user.address.zip);
+      }
+    }
+  }, [user]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    const { id, value } = e.target;
+    if (id === "name") setName(value);
+    if (id === "lastname") setLastname(value);
+    if (id === "email") setEmail(value);
+    if (id === "street") setStreet(value);
+    if (id === "city") setCity(value);
+    if (id === "state") setState(value);
+    if (id === "zip") setZip(value);
   };
 
   const handleSave = () => {
-    // Aquí deberías enviar los datos actualizados al servidor
-    console.log("Datos guardados", userData);
+    // Guarda los datos en localStorage
+    const profileData = {
+      name,
+      lastname,
+      email,
+      street,
+      city,
+      state,
+      zip,
+    };
+    localStorage.setItem("userProfile", JSON.stringify(profileData));
     setEditable(false);
+    toast.success("Datos actualizados");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center mt-8">
+    <div className="min-h-screen flex items-center justify-center mt-[-64px]">
       <div
         id="user-form"
-        className="bg-white p-6 rounded shadow-xl w-96 flex flex-col"
+        className="bg-white p-4 rounded shadow-xl w-96 flex flex-col relative top-[-100px] left-[-50px]"
       >
         <div className="flex justify-center items-center mb-4 cursor-pointer">
           Hola
         </div>
-        <h1 className="text-2xl font-bold mb-4 text-center font-serif">
+        <h1 className="text-2xl font-bold mb-4 text-center font-serif mx-auto mt-4">
           Mis datos
         </h1>
-
         <div className="mb-4 flex items-center">
           <label
             htmlFor="name"
@@ -313,17 +355,17 @@ const PerfilUsuario = () => {
           </label>
           <input
             autoFocus={editable}
-            name="name"
-            value={userData.name}
-            className={`transition-all duration-300 ease-in-out ${
+            className={`ml-1 transition-all duration-300 ease-in-out ${
               editable ? "transform scale-100 hover:scale-105" : ""
-            } bg-gray-50 border ${
-              editable ? "border-teal-500" : "border-gray-300"
-            } text-black text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2`}
+            } mr-10 bg-gray-50 border ${
+              editable ? "border-teal-500" : "border-gray-800"
+            } text-black-500 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-teal-500 dark:focus:border-teal-500`}
             type="text"
+            id="name"
+            value={name}
             onChange={handleChange}
             disabled={!editable}
-            placeholder="Nombre"
+            placeholder="Name"
           />
         </div>
 
@@ -335,17 +377,17 @@ const PerfilUsuario = () => {
             Apellido:
           </label>
           <input
-            name="lastname"
-            value={userData.lastname}
-            className={`transition-all duration-300 ease-in-out ${
+            className={`ml-1 transition-all duration-300 ease-in-out ${
               editable ? "transform scale-100 hover:scale-105" : ""
-            } bg-gray-50 border ${
+            } mr-10 bg-gray-50 border ${
               editable ? "border-teal-500" : "border-gray-300"
-            } text-black text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2`}
+            } text-black-500 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-teal-500 dark:focus:border-teal-500`}
             type="text"
+            id="lastname"
+            value={lastname}
             onChange={handleChange}
             disabled={!editable}
-            placeholder="Apellido"
+            placeholder="Lastname"
           />
         </div>
 
@@ -357,14 +399,14 @@ const PerfilUsuario = () => {
             Email:
           </label>
           <input
-            name="email"
-            value={userData.email}
-            className={`transition-all duration-300 ease-in-out ${
+            className={`ml-1 transition-all duration-300 ease-in-out ${
               editable ? "transform scale-100 hover:scale-105" : ""
-            } bg-gray-50 border ${
+            } mr-10 bg-gray-50 border ${
               editable ? "border-teal-500" : "border-gray-300"
-            } text-black text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2`}
+            } text-black-500 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-teal-500 dark:focus:border-teal-500`}
             type="email"
+            id="email"
+            value={email}
             onChange={handleChange}
             disabled={!editable}
             placeholder="Email"
@@ -373,47 +415,113 @@ const PerfilUsuario = () => {
 
         <div className="mb-4 flex items-center">
           <label
-            htmlFor="address"
+            htmlFor="street"
             className="block text-gray-700 text-sm font-semibold mb-2 mr-2"
           >
-            Dirección:
+            Calle:
           </label>
           <input
-            name="address"
-            value={userData.address}
-            className={`transition-all duration-300 ease-in-out ${
+            className={`ml-1 transition-all duration-300 ease-in-out ${
               editable ? "transform scale-100 hover:scale-105" : ""
-            } bg-gray-50 border ${
+            } mr-10 bg-gray-50 border ${
               editable ? "border-teal-500" : "border-gray-300"
-            } text-black text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2`}
+            } text-black-500 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-teal-500 dark:focus:border-teal-500`}
             type="text"
+            id="street"
+            value={street}
             onChange={handleChange}
             disabled={!editable}
-            placeholder="Dirección"
+            placeholder="Calle"
+          />
+        </div>
+
+        <div className="mb-4 flex items-center">
+          <label
+            htmlFor="city"
+            className="block text-gray-700 text-sm font-semibold mb-2 mr-2"
+          >
+            Ciudad:
+          </label>
+          <input
+            className={`ml-1 transition-all duration-300 ease-in-out ${
+              editable ? "transform scale-100 hover:scale-105" : ""
+            } mr-10 bg-gray-50 border ${
+              editable ? "border-teal-500" : "border-gray-300"
+            } text-black-500 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-teal-500 dark:focus:border-teal-500`}
+            type="text"
+            id="city"
+            value={city}
+            onChange={handleChange}
+            disabled={!editable}
+            placeholder="Ciudad"
+          />
+        </div>
+
+        <div className="mb-4 flex items-center">
+          <label
+            htmlFor="state"
+            className="block text-gray-700 text-sm font-semibold mb-2 mr-2"
+          >
+            Estado:
+          </label>
+          <input
+            className={`ml-1 transition-all duration-300 ease-in-out ${
+              editable ? "transform scale-100 hover:scale-105" : ""
+            } mr-10 bg-gray-50 border ${
+              editable ? "border-teal-500" : "border-gray-300"
+            } text-black-500 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-teal-500 dark:focus:border-teal-500`}
+            type="text"
+            id="state"
+            value={state}
+            onChange={handleChange}
+            disabled={!editable}
+            placeholder="Estado"
+          />
+        </div>
+
+        <div className="mb-4 flex items-center">
+          <label
+            htmlFor="zip"
+            className="block text-gray-700 text-sm font-semibold mb-2 mr-2"
+          >
+            Código Postal:
+          </label>
+          <input
+            className={`ml-1 transition-all duration-300 ease-in-out ${
+              editable ? "transform scale-100 hover:scale-105" : ""
+            } mr-10 bg-gray-50 border ${
+              editable ? "border-teal-500" : "border-gray-300"
+            } text-black-500 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-teal-500 dark:focus:border-teal-500`}
+            type="text"
+            id="zip"
+            value={zip}
+            onChange={handleChange}
+            disabled={!editable}
+            placeholder="Código Postal"
           />
         </div>
 
         <p className="text-gray-600 text-sm mb-2">
           ¿Necesitas actualizar tu información? Haz clic en{" "}
-          <strong>&quot;Editar&quot;</strong> para empezar.
+          <strong>"Editar"</strong> para empezar.
         </p>
 
         <div className="flex justify-center items-center">
-          {editable ? (
-            <button
-              className="bg-teal-500 text-white font-bold py-2 px-4 rounded transition-transform duration-300 hover:scale-110 hover:text-white cursor-pointer"
-              onClick={handleSave}
-            >
-              Guardar
-            </button>
-          ) : (
-            <button
-              className="bg-teal-500 text-white font-bold py-2 px-4 rounded transition-transform duration-300 hover:scale-110 hover:text-white cursor-pointer"
-              onClick={() => setEditable(true)}
-            >
-              Editar
-            </button>
-          )}
+          <button
+            className="bg-secondary text-white font-bold py-2 px-4 rounded transition-transform duration-300 hover:scale-110 hover:text-primary cursor-pointer"
+            onClick={() => setEditable(true)}
+            disabled={editable}
+          >
+            Editar
+          </button>
+          <button
+            className="text-secondary font-semibold py-2 px-4 transition-transform duration-300 hover:scale-110 hover:text-secondary cursor-pointer"
+            onClick={handleSave} // Llama a handleSave para guardar los cambios
+            disabled={!editable}
+          >
+            Guardar
+          </button>
+          <Toaster position="top-center" reverseOrder={false} />
         </div>
       </div>
     </div>

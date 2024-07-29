@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+	<h1 align="center">🪵EcoWood</h1>
+</div>
 
-## Getting Started
+<p>¡Te damos la bienvenida a EcoWood! Nos alegra que te unas a nuestra comunidad. Aquí encontrarás productos únicos y sostenibles, creados con dedicación por artesanos talentosos. Explora nuestra tienda, descubre piezas exclusivas y ayuda a apoyar la artesanía local.</p>
+<div align="center">
+	<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTN4OXh5OXZ3cjEybnRvMDliMmFkMHlvemVlcHZ3Nng0N3NpZjV4NSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xcFPfKI6rCkErLSJcZ/giphy.gif"></img>
+</div>
 
-First, run the development server:
+## 🚀 ¿Qué es EcoWood?
+<p>EcoWood es un e-commerce dedicado a la venta de artesanías de madera. Nuestro objetivo es ofrecer productos únicos y sostenibles al mismo tiempo que apoyamos a los artesanos locales. En EcoWood, nos esforzamos por proporcionar una experiencia de compra agradable, permitiendo a los clientes explorar y adquirir piezas personalizadas que aportan un toque especial a sus hogares.</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🧮 Propósito
+<p>El propósito de EcoWood es conectar a los amantes de la madera con artesanos talentosos que crean productos únicos y sostenibles. De esta forma queremos:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Promover el uso de materiales naturales y técnicas artesanales.
+- Contribuir a un estilo de vida más ecológico y responsable.
+- Apoyar a los artesanos locales y preservar las tradiciones artesanales.
+- Ofrecer a nuestros clientes productos de alta calidad. </p>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## 📱Tecnologías
+<p>Para el desarrollo de EcoWood, hemos utilizado las siguientes tecnologías:</p>
 
-To learn more about Next.js, take a look at the following resources:
+### Backend
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" width="20"/> Python: Lenguaje de programación utilizado para desarrollar la lógica del servidor. 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Frontend
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" width="20"/> JavaScript: Lenguaje de programación para agregar interactividad y mejorar la experiencia del usuario.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Base de datos
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg" width="20"/> SQLite: Sistema de gestión de bases de datos ligero y fácil de usar, adecuado para aplicaciones pequeñas y medianas.
 
-## Deploy on Vercel
+### Otros
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" width="20"/> Git: Sistema de control de versiones utilizado para el seguimiento de cambios en el código fuente.
+- <img src="https://github.com/No-Country-simulation/c19-09-ft-python-react/assets/150278575/b0c1b087-d77c-4df5-af56-3eadcff09fe0" width="20"/> GitHub: Plataforma de alojamiento de código utilizada para la colaboración y el almacenamiento del código fuente.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🗺️ Colaboradores
+<p>Este proyecto ha sido posible gracias a la colaboración de diversas personas comprometidas con su desarrollo y mejora continua. Agradecemos sinceramente a todos aquellos que han contribuido con su tiempo, conocimientos y esfuerzo para hacer de EcoWood una realidad.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Si deseas unirte como colaborador o explorar cómo puedes contribuir, no dudes en contactarnos. ¡Estamos entusiasmados de trabajar juntos para llevar este proyecto aún más lejos! </p>
+
+<div align="center">
+	<img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcTZncGFpYnJuenhpN3FlaGpsejhkMnBkcTBxdnlvZTZ4bnE0b3NodyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Ae7SI3LoPYj8Q/giphy.webp"></img>
+</div>
+
+<div align="center">
+	
+#### 👾 Ainhoa
+<a target="_blank" href="https://www.linkedin.com/in/ainhoa-leon-arrieta/"><img src="https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=Linkedin&logoColor=white"></img></a>
+<a href="https://github.com/noaregui" target="_blank">
+	<img src="https://img.shields.io/badge/github-181717.svg?style=for-the-badge&logo=github&logoColor=white" alt="github" />
+</a>
+
+#### 🦾 María
+<a target="_blank" href="https://www.linkedin.com/in/thebusinesscat/"><img src="https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=Linkedin&logoColor=white"></img></a>
+<a href="https://github.com/Morgwens" target="_blank">
+	<img src="https://img.shields.io/badge/github-181717.svg?style=for-the-badge&logo=github&logoColor=white" alt="github" />
+</a>
+
+#### 🎮 Pablo
+<a target="_blank" href="https://www.linkedin.com/in/guerre-pablo-agustin/"><img src="https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=Linkedin&logoColor=white"></img></a>
+<a href="https://github.com/Guerre-Pablo-Agustin" target="_blank">
+	<img src="https://img.shields.io/badge/github-181717.svg?style=for-the-badge&logo=github&logoColor=white" alt="github" />
+</a>
+
+
+#### 🕹️ Alan
+<a target="_blank" href="https://www.linkedin.com/in/alan-favatier-a7a67825b/"><img src="https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=Linkedin&logoColor=white"></img></a>
+<a href="https://github.com/alanfavatier" target="_blank">
+	<img src="https://img.shields.io/badge/github-181717.svg?style=for-the-badge&logo=github&logoColor=white" alt="github" />
+</a>
+
+#### 🎯 Yeisy
+<a target="_blank" href="https://www.linkedin.com/in/yeisy-paname%C3%B1o-00b5541a3/"><img src="https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=Linkedin&logoColor=white"></img></a>
+<a href="https://github.com/Jeisyp1" target="_blank">
+	<img src="https://img.shields.io/badge/github-181717.svg?style=for-the-badge&logo=github&logoColor=white" alt="github" />
+</a>
+
+</div>
+
+

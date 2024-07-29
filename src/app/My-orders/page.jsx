@@ -1,5 +1,5 @@
 "use client";
-import AuthGuard from "../../components/authGuard";
+import AuthGuard from "@/components/authGuard";
 import React from "react";
 
 const MyAccount = () => {

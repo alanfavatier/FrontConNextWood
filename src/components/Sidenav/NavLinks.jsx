@@ -1,19 +1,28 @@
 "use client";
 
+import { useAppSelector } from "@/redux/hooks";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CiUser, CiViewList, CiHome } from "react-icons/ci";
+import { CiUser, CiViewList, CiHome} from "react-icons/ci";
+import { IoDocumentOutline } from "react-icons/io5";
 
-// Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
-const links = [
-  { name: "Home", href: "/Dashboard", icon: CiHome },
+const vendedorLinks = [
+  { name: "Inicio", href: "/Dashboard", icon: CiHome },
   { name: "Productos", href: "/Dashboard/Products", icon: CiViewList },
   { name: "Perfil", href: "/Dashboard/Profile", icon: CiUser },
 ];
 
+const adminLinks = [
+  ...vendedorLinks,
+  { name: "Validar Productos", href: "/Dashboard/Validar-Producto", icon: IoDocumentOutline },
+  { name: "Validar Usuarios", href: "/Dashboard/Validar-Usuario", icon: CiUser },
+];
+
 export default function NavLinks() {
+  const user = useAppSelector((state) => state.useReducer.user);
   const pathName = usePathname();
+
+  const links = user?.role === "Admin" ? adminLinks : vendedorLinks;
 
   return (
     <>

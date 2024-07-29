@@ -1,14 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { data } from "../../../../public/data";
+
+//toast
+import { toast, Toaster } from "react-hot-toast";
 
 //iconos
 import { MdOutlineShoppingCart } from "react-icons/md";
+import { BsHeart, BsHeartFill } from "react-icons/bs";
+
 import ProductSlider from "../../../components/ProducSlider/ProductSlider";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { addItem } from "@/redux/features/cart";
+import { addItem, getCartData } from "@/redux/features/cart";
+import Link from "next/link";
+import { addFavorite, getlogindata, removeFavorite } from "@/redux/features/userSlice";
 
 const Details = ({ params }) => {
   //dispatch
@@ -16,13 +23,16 @@ const Details = ({ params }) => {
 
   //estado del carrito
   const cartItems = useAppSelector((state) => state.cartReducer.cartItems);
+  const user = useAppSelector((state) => state.useReducer.user);
+  const userFavorites = useAppSelector((state) => state.useReducer.favorites);
+
+  console.log("user favoritos", userFavorites);
 
   //traer el id del producto
   const { _id } = params;
   const productId = parseInt(_id);
   const productos = data.products;
   const product = productos.find((product) => product._id === productId);
-  console.log("product", product);
 
   //Manejar la imagen seleccionada y el hover
   const [selectedImage, setSelectedImage] = useState(product.image[0]);
@@ -62,24 +72,60 @@ const Details = ({ params }) => {
         existingItem &&
         existingItem.quantity + quantity > existingItem.stock
       ) {
-        console.log(
+        toast.success(
           "No hay suficiente stock disponible para agregar más unidades de este producto al carrito."
         );
       } else {
         dispatch(addItem(productData));
-        console.log("Producto agregado al carrito.", productData);
+        toast.success(`${product.title} agregado al carrito.`);
       }
     } else {
-      console.log("La cantidad debe ser mayor a 0");
+      toast.success("La cantidad debe ser mayor a 0");
     }
   };
+
+  //buscar vendedor con id
+  const vendedor = data.users.find(
+    (vendedor) => vendedor._id === product.idvendedor
+  );
+
+  //favoritos
+  const [isFavorite, setIsFavorite] = useState(user?.favorites || []);
+
+  useEffect(() => {
+    setIsFavorite(userFavorites || []);
+  }, [user]);
+
+  useEffect(() => {
+    dispatch(getCartData());
+    dispatch(getlogindata());
+  }, [dispatch]);
+
+  const handleToggleFavorite = () => {
+    if (user) {
+      const productId = product._id; 
+  
+      if (isFavorite.includes(productId)) {
+        dispatch(removeFavorite(productId));
+        setIsFavorite((prevFavorites) => prevFavorites.filter(id => id !== productId));
+        toast.success("Producto eliminado de tus favoritos.");
+      } else {
+        dispatch(addFavorite(productId));
+        setIsFavorite((prevFavorites) => [...prevFavorites, productId]);
+        toast.success("Producto agregado a tus favoritos.");
+      }
+    }
+  };
+  
+
+  
 
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4  mt-16 md:py-20 md:px-20 cursor-pointer">
         <div className="flex flex-col items-start text-start  ">
           <div className="flex flex-col md:flex-row-reverse gap-6 items-center  md:m-4 ">
-            <div className="relative w-[400px] h-[420px] md:mb-4 rounded-md ">
+            <div className="relative w-[500px] h-[420px] md:mb-4 rounded-md ">
               <Image
                 src={hoveredImage || selectedImage}
                 alt="Imagen del producto seleccionada"
@@ -88,7 +134,7 @@ const Details = ({ params }) => {
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
               />
             </div>
-            <div className="md:h-full justify-between flex flex-row md:flex-col ">
+            {/* <div className="md:h-full justify-between flex flex-row md:flex-col ">
               {product.image.map((src, index) => (
                 <div
                   key={index}
@@ -106,7 +152,7 @@ const Details = ({ params }) => {
                   />
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
           <div className="flex flex-col items-start text-start py-4 px-8 md:px-4">
             <h2 className="text-xl font-bold ">Descripcion del producto</h2>
@@ -117,7 +163,35 @@ const Details = ({ params }) => {
         {/* Informacion del producto */}
         <div className="flex flex-col items-start text-start py-4 px-8 gap-6">
           <h2 className="text-4xl font-bold ">{product.title}</h2>
-          <p className="text-2xl font-bold text-primary">$ {product.price}</p>
+          <div className="flex items-center gap-4">
+          
+          {user && (
+            <button
+            onClick={handleToggleFavorite}
+              className={`
+      flex justify-center items-center text-center 
+      transition duration-300 ease-in-out`}
+            >
+              {isFavorite.includes(product._id) ? (
+                <BsHeartFill className="text-2xl text-red-700" />
+              ) : (
+                <BsHeart className="text-2xl text-red-700" />
+              )}
+            </button>
+          )}
+     <p>{product.rating}</p>
+          </div>
+          {/* Icono de corazón para agregar a favoritos */}
+
+          <Link href={`/Profile/${vendedor?._id}`}>
+            <p className="text-xl ">
+              Perfil del vendedor: {""}
+               <span className="text-secondary font-bold underline ">
+             {vendedor?.name}
+               </span>
+            </p>
+          </Link>
+          <p className="text-2xl font-bold text-secondary">$ {product.price}</p>
           <p className="text-xl font-extralight">{product.category}</p>
           {product.stock > 0 ? (
             <p className="text-sm font-extralight">
@@ -126,7 +200,7 @@ const Details = ({ params }) => {
           ) : (
             <p className="text-xl font-extralight">❌ sin stock</p>
           )}
-          <p>{product.rating}</p>
+     
           {product.stock > 0 && (
             <input
               type="number"
@@ -144,6 +218,7 @@ const Details = ({ params }) => {
           >
             <MdOutlineShoppingCart size={25} /> Agregar al carrito
           </button>
+          <Toaster position="top-center" />
         </div>
       </div>
 

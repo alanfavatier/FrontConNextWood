@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCartData, removeItem, updateQuantity } from "@/redux/features/cart";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Link from "next/link";
-import Image from "next/image";
+// import { useShoppingCartupdateUserMutation } from "@/redux/services/usersApi";
 import { toast, Toaster } from "react-hot-toast";
 
 const Carrito = () => {
   const dispatch = useAppDispatch();
   const cartItems = useSelector((state) => state.cartReducer.cartItems);
-  // const userId = useAppSelector((state) => state.loginReducer.user);
+  const user = useAppSelector((state) => state.useReducer.user);
   // const userToken = useAppSelector((state) => state.loginReducer.token);
 
   let idItems = [];
@@ -84,6 +84,7 @@ const Carrito = () => {
   };
 
   const count = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const isCartEmpty = cartItems.length === 0;
 
   const calculateTotal = () => {
     return cartItems.reduce((acc, item) => acc + item.subtotal, 0).toFixed(2);
@@ -111,9 +112,9 @@ const Carrito = () => {
                 <tr className="border-b">
                   <th className="text-center p-2 mr-4"></th>
                   <th className="text-center p-2">Producto</th>
-                  <th className="text-center p-2">Material</th>
-                  <th className="text-center p-2">Tamaño</th>
-                  <th className="text-center p-2">Acabado</th>
+                  <th className="text-center p-2">material</th>
+                  <th className="text-center p-2">size</th>
+                  <th className="text-center p-2">finish</th>
                   <th className="text-center p-2">Precio</th>
                   <th className="text-center p-2">Cantidad</th>
                   <th className="text-center p-2">Subtotal</th>
@@ -126,13 +127,11 @@ const Carrito = () => {
                     <td className="p-2">
                       <Link
                         href={`/Details/${item._id}`}
-                        className="underline font-bold"
+                        className="underline font-bold "
                       >
-                        <Image
+                        <img
                           src={item.image}
                           alt={item.title}
-                          width={80}
-                          height={80}
                           className="object-contain w-20 h-20 mr-4"
                         />
                       </Link>
@@ -140,7 +139,7 @@ const Carrito = () => {
                     <td className="p-2 text-center">
                       <Link
                         href={`/Details/${item._id}`}
-                        className="underline font-bold"
+                        className="underline font-bold "
                       >
                         {item.title}
                       </Link>
@@ -167,7 +166,7 @@ const Carrito = () => {
                     <td className="p-2 text-center font-bold ">
                       ${item.subtotal.toFixed(2)}
                     </td>
-                    <td className="p-2 text-center hover:text-red-600">
+                    <td className="p-2 text-center hover:text-red-600  ">
                       <button onClick={() => handleRemoveItem(item._id)}>
                         Eliminar
                       </button>
@@ -179,23 +178,23 @@ const Carrito = () => {
             </table>
           ) : (
             <p className="text-gray-600">
-              El carrito está vacío.
+              El carrito esta vacío.
               <br />
               <Link
                 href="/#product"
-                className="underline font-bold text-primary"
+                className="underline font-bold text-secondary"
               >
-                <span>Revisa el catálogo para agregar productos</span>
+                <span>Revisa el catalogo para agregar productos</span>
               </Link>
             </p>
           )}
-          <div className="w-full flex m-2 p-4 max-h-80">
-            <fieldset className="border border-bggris p-4 rounded-md">
-              <legend className="text-base text-start font-bold text-bgred p-4">
+          <div className="w-full flex  m-2 p-4 max-h-80">
+            <fieldset className="border border-bggris  p-4 rounded-md">
+              <legend className="text-base  text-start font-bold text-bgred p-4">
                 Resumen del Carrito
               </legend>
-              <div className="flex justify-end overflow-auto">
-                <div className="flex-col">
+              <div className="flex justify-end  overflow-auto">
+                <div className=" flex-col">
                   <p>
                     Cant. de productos:
                     <span className="text-bgred ml-2">{count}</span>
@@ -203,27 +202,44 @@ const Carrito = () => {
                   <br />
                   <hr />
                   <br />
-                  <p className="text-xl flex text-start">
+                  <p className=" text-xl flex text-start ">
                     Total:
-                    <span className="text-bgred ml-2 flex justify-end text-end">
+                    <span className="text-bgred  ml-2 flex justify-end text-end">
                       $ {calculateTotal()}
                     </span>
                   </p>
                   <br />
-                  <Link href="/Checkout">
-                    <button
-                      className="bg-secondary text-white text-base py-2 px-10 rounded-lg mx-2 
-                      flex justify-center items-center text-center whitespace-nowrap hover:bg-bgred hover:text-white"
-                    >
-                      Finalizar Compra
-                    </button>
-                  </Link>
+                  {!isCartEmpty && (
+        <>
+          {user ? (
+            <Link href="/Checkout">
+              <button
+                className="bg-secondary text-white text-base py-2 px-10 rounded-lg mx-2 
+                flex justify-center items-center text-center whitespace-nowrap hover:bg-bgred hover:text-white"
+              >
+                Finalizar Compra
+              </button>
+            </Link>
+          ) : (
+            <Link href="/Sign-in">
+              <button
+                className="bg-secondary text-white text-base py-2 px-10 rounded-lg mx-2 
+                flex justify-center items-center text-center whitespace-nowrap hover:bg-bgred hover:text-white"
+              >
+                Inicia Sesión para Finalizar Compra
+              </button>
+            </Link>
+          )}
+        </>
+      )}
                 </div>
               </div>
             </fieldset>
           </div>
         </div>
       </fieldset>
+
+      {/* cierre del contenedor principal */}
     </div>
   );
 };
