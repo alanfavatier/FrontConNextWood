@@ -1,10 +1,6 @@
 "use client";
 import React, { useState } from "react";
 // componentes
-import {
-  WelcomeMessage,
-  WelcomeMessageLogin,
-} from "../../Components/WelcomeMessage/WelcomeMessage";
 
 import { data } from "../../../public/data";
 
