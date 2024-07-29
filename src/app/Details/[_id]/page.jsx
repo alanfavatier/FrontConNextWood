@@ -3,14 +3,9 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { data } from "../../../../public/data";
-
-//toast
 import { toast, Toaster } from "react-hot-toast";
-
-//iconos
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
-
 import ProductSlider from "../../../components/ProducSlider/ProductSlider";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addItem, getCartData } from "@/redux/features/cart";
@@ -22,28 +17,18 @@ import {
 } from "@/redux/features/userSlice";
 
 const Details = ({ params }) => {
-  //dispatch
   const dispatch = useAppDispatch();
 
-  //estado del carrito
   const cartItems = useAppSelector((state) => state.cartReducer.cartItems);
   const user = useAppSelector((state) => state.useReducer.user);
   const userFavorites = useAppSelector((state) => state.useReducer.favorites);
 
-  console.log("user favoritos", userFavorites);
-
-  //traer el id del producto
   const { _id } = params;
   const productId = parseInt(_id);
   const productos = data.products;
   const product = productos.find((product) => product._id === productId);
 
-  if (!product) {
-    return <div>Producto no encontrado</div>;
-  }
-
-  //Manejar la imagen seleccionada y el hover
-  const [selectedImage, setSelectedImage] = useState(product.image[0]);
+  const [selectedImage, setSelectedImage] = useState(product?.image[0] || "");
   const [hoveredImage, setHoveredImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [isFavorite, setIsFavorite] = useState(userFavorites || []);
@@ -57,6 +42,10 @@ const Details = ({ params }) => {
     setIsFavorite(userFavorites || []);
   }, [userFavorites]);
 
+  if (!product) {
+    return <div>Producto no encontrado</div>;
+  }
+
   const handleQuantityChange = (event) => {
     const value = parseInt(event.target.value);
     if (value >= 1 && value <= product.stock) {
@@ -64,7 +53,6 @@ const Details = ({ params }) => {
     }
   };
 
-  //agregar productos al carrito
   const handleAddToCart = () => {
     if (quantity >= 1) {
       const productData = {
@@ -98,7 +86,6 @@ const Details = ({ params }) => {
     }
   };
 
-  //buscar vendedor con id
   const vendedor = data.users.find(
     (vendedor) => vendedor._id === product.idvendedor
   );
@@ -191,7 +178,7 @@ const Details = ({ params }) => {
           <button
             onClick={handleAddToCart}
             type="button"
-            className="flex flex-row gap-4 items-center justify-center w-80  sm:w-96 h-10 bg-secondary text-white text-lg hover:bg-tertyari rounded-full duration-300 "
+            className="flex flex-row gap-4 items-center justify-center w-80  sm:w-96 h-10 bg-secondary text-white text-lg hover:bg-tertiary rounded-full duration-300 "
           >
             <MdOutlineShoppingCart size={25} /> Agregar al carrito
           </button>
