@@ -7,14 +7,13 @@ import Buscador from "@/components/Buscador/Buscador";
 import { useState } from "react";
 import Link from "next/link";
 
-const page = () => {
+const Page = () => {
+  // Cambié el nombre del componente a "Page"
 
   const [searchQuery, setSearchQuery] = useState("");
-  const user = useAppSelector((state) => state.useReducer.user)
+  const user = useAppSelector((state) => state.useReducer.user);
 
-  const usuarios = data.users
-
-
+  const usuarios = data.users;
 
   return (
     <div className="p-6 items-center">
@@ -49,15 +48,16 @@ const page = () => {
                     <td className="p-2 text-center">{item.email}</td>
                     <td className="p-2 text-center">{item.role}</td>
                     <td className="p-2 text-center">{item.phone}</td>
-                    <td className="p-2 text-center">${item.address.city}</td>
+                    <td className="p-2 text-center">{item.address.city}</td>
                     <td className="p-2 text-center">
-                     
-                        <button className="bg-blue-500 text-white rounded px-2 py-1 hover:bg-blue-800 focus:outline-none cursor-pointer">
-                          Validar
-                        </button>
+                      <button className="bg-blue-500 text-white rounded px-2 py-1 hover:bg-blue-800 focus:outline-none cursor-pointer">
+                        Validar
+                      </button>
                     </td>
                     <td className="p-2 text-center">
-                      <button className="bg-red-500 text-white rounded px-2 py-1 hover:bg-red-800 focus:outline-none cursor-pointer">Desabilitar</button>
+                      <button className="bg-red-500 text-white rounded px-2 py-1 hover:bg-red-800 focus:outline-none cursor-pointer">
+                        Deshabilitar
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -74,4 +74,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page; // Asegúrate de exportar el componente con la letra mayúscula
