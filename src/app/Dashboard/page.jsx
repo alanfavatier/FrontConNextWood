@@ -4,7 +4,7 @@ import React from "react";
 import VendedorPage from "../../components/Dashboard/VendedorPage";
 import AdminPage from "../../components/Dashboard/AdminPage";
 
-const ValidarUsuario = () => {
+const Page = () => {
   const user = useAppSelector((state) => state.useReducer.user);
 
   // Decide qué componente renderizar basado en el rol del usuario
@@ -17,4 +17,4 @@ const ValidarUsuario = () => {
   );
 };
 
-export default ValidarUsuario;
+export default Page;
