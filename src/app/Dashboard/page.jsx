@@ -1,5 +1,5 @@
 "use client";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "../../redux/hooks";
 import React from "react";
 import VendedorPage from "../../components/Dashboard/VendedorPage";
 import AdminPage from "../../components/Dashboard/AdminPage";
