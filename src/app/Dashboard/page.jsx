@@ -7,6 +7,7 @@ import AdminPage from "../../components/Dashboard/AdminPage";
 const Page = () => {
   const user = useAppSelector((state) => state.useReducer.user);
 
+  // Decide qué componente renderizar basado en el rol del usuario
   const SelectedPage = user?.role === "Admin" ? AdminPage : VendedorPage;
 
   return (
