@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Filtros from "../../components/Filtros/Filtros";
+import Buscador from "../../components/Buscador/Buscador";
 import { data } from "../../../public/data";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
