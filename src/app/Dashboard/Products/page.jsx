@@ -2,8 +2,8 @@
 
 import { data } from "../../../../public/data";
 import Image from "next/image";
-import { useAppSelector } from "@/redux/hooks";
-import Buscador from "@/components/Buscador/Buscador";
+import { useAppSelector } from "../../../redux/hooks";
+import Buscador from "../../../components/Buscador/Buscador";
 import { useState } from "react";
 import Link from "next/link";
 
