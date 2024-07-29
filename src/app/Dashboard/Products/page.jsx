@@ -16,7 +16,7 @@ const Page = () => {
   }
 
   const vendedorId = parseInt(user._id);
-  const vendedor = data.users.find((vendedor) => vendedor._id === vendedorId);
+
   const products = data.products.filter(
     (product) => product.idvendedor === vendedorId
   );

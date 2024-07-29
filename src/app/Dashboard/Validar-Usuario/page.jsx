@@ -2,17 +2,8 @@
 
 import { data } from "../../../../public/data";
 import Image from "next/image";
-import { useAppSelector } from "../../../redux/hooks";
-import Buscador from "@/components/Buscador/Buscador";
-import { useState } from "react";
-import Link from "next/link";
 
 const Page = () => {
-  // Cambié el nombre del componente a "Page"
-
-  const [searchQuery, setSearchQuery] = useState("");
-  const user = useAppSelector((state) => state.useReducer.user);
-
   const usuarios = data.users;
 
   return (
