@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { data } from "../../../public/data";
 import { CiViewList } from "react-icons/ci";
+import { MdPointOfSale, MdOutlinePendingActions, MdInsertComment  } from "react-icons/md";
 import Link from "next/link";
 import { useAppDispatch } from "../../redux/hooks";
 import { getlogindata } from "../../redux/features/userSlice";
@@ -32,10 +33,24 @@ const VendedorPage = () => {
     {
       title: "Total de ventas",
       value: 20,
-      icon: CiViewList,
-      color: "bg-red-200",
+      icon: MdPointOfSale,
+      color: "bg-blue-200",
       link: `/Dashboard/Products`,
     },
+    {
+      title: "Pedidos pendientes",
+      value: 5,
+      icon: MdOutlinePendingActions,
+      color: "bg-orange-200",
+      link: `/Dashboard/Orders`,
+    },
+    {
+      title: "Comentarios y reseñas",
+      value: 50,
+      icon: MdInsertComment,
+      color: "bg-pink-200",
+      link: `/Dashboard/Reviews`,
+    }
   ];
 
   useEffect(() => {
@@ -44,7 +59,8 @@ const VendedorPage = () => {
 
   return (
     <main>
-      <h1 className="text-3xl underline mb-10">Dashboard</h1>
+      <Card>
+      <h1 className="text-3xl font-serif mb-10 text-white">Dashboard</h1>
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
         {itemsCards.map((item, index) => {
           const LinkIcon = item.icon;
@@ -54,10 +70,10 @@ const VendedorPage = () => {
                 className={`rounded-xl ${item.color} hover:bg-sky-200 cursor-pointer p-2 shadow-sm hover:scale-105`}
               >
                 <div className="flex p-4">
-                  <LinkIcon className="w-6" />
                   <h3 className="ml-2 text-sm font-medium">{item.title}</h3>
                 </div>
-                <p className="truncate rounded-xl px-4 py-8 text-center text-2xl">
+                <p className="font-mono flex items-center justify-center gap-4 px-4 py-8 text-center text-2xl">
+                  <LinkIcon className="w-6" />
                   {item.value}
                 </p>
               </a>
@@ -65,6 +81,7 @@ const VendedorPage = () => {
           );
         })}
       </div>
+     
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="mt-10">
           <Card className="mt-4">
@@ -81,6 +98,7 @@ const VendedorPage = () => {
           </Card>
         </div>
       </div>
+      </Card>
     </main>
   );
 };

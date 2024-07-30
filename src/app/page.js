@@ -64,9 +64,11 @@ export default function Home() {
                 {!section.topRated && (
                   <Link
                     href={`/Products/${section.category}`}
-                    className="text-md text-secondary hover:text-tertiary"
+                    className=""
                   >
+                    <button className="text-md bg-secondary text-white px-4 py-2 rounded transition ease-in-out hover:bg-amber-900">
                     Ver todos
+                    </button>
                   </Link>
                 )}
               </div>
