@@ -4,10 +4,11 @@ import { CiPower } from "react-icons/ci";
 import NavLinks from "./NavLinks";
 import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
-import { useAppSelector } from "@/redux/hooks";
-import { logoutUser } from "@/redux/features/userSlice";
+import { useAppSelector } from "../../redux/hooks";
+import { logoutUser } from "../../redux/features/userSlice";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { getlogindata } from "../../redux/features/userSlice";
 
 export default function SideNav() {
   const user = useAppSelector((state) => state.useReducer.user);
