@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useAppSelector } from "@/redux/hooks";
 import { logoutUser } from "@/redux/features/userSlice";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function SideNav() {
   const user = useAppSelector((state) => state.useReducer.user);
