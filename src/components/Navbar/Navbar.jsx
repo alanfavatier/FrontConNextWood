@@ -7,7 +7,8 @@ import {
   faSearch,
   faUser,
   faShoppingCart,
-  faHome,
+  faInfoCircle,
+  faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { useAppSelector } from "@/redux/hooks";
@@ -23,12 +24,9 @@ const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
 
-  // estado del usuario
   const user = useSelector((state) => state.useReducer.user);
-
   const [localUser, setLocalUser] = useState(user);
 
-  // conteo de los productos del carrito
   const cartItems = useAppSelector((state) => state.cartReducer.cartItems);
   const [cartItemsCount, setCartItemsCount] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
@@ -61,17 +59,22 @@ const Navbar = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     console.log("Buscar productos con:", searchQuery);
-    window.location.href = `/Search?query=${searchQuery}`;
+    window.location.href = `/SearchPage?query=${searchQuery}`;
   };
 
   const renderView = () => {
     return (
       <>
-      <li>
+        <li
+          className={`cursor-pointer ${
+            pathname === "/Sobre-nosotros" ? "underline" : ""
+          }`}
+        >
           <Link href="/Sobre-nosotros" legacyBehavior>
-            <a className="text-tertiary flex items-center">
-            <span>Sobre nosotros</span>
-            </a>
+            <p className="text-tertiary flex items-center font-light">
+              <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />
+              <span>Sobre Nosotros</span>
+            </p>
           </Link>
         </li>
         {user ? (
@@ -82,13 +85,17 @@ const Navbar = () => {
               }`}
             >
               <Link href="/My-account">
-                <p className="text-tertiary font-light">My Account</p>{" "}
-                {/* Fuente más fina */}
+                <p className="text-tertiary flex items-center font-light">
+                  <FontAwesomeIcon icon={faUser} className="mr-1" />
+                  Mi Cuenta
+                </p>
               </Link>
             </li>
             <li className="cursor-pointer" onClick={handleSignOut}>
-              <p className="text-tertiary font-light">Sign out</p>{" "}
-              {/* Fuente más fina */}
+              <p className="text-tertiary flex items-center font-light">
+                <FontAwesomeIcon icon={faSignOutAlt} className="mr-1" />
+                Cerrar Sesión
+              </p>
             </li>
           </>
         ) : (
@@ -98,8 +105,10 @@ const Navbar = () => {
             }`}
           >
             <Link href="/Sign-in">
-              <p className="text-tertiary font-light">Sign in</p>{" "}
-              {/* Fuente más fina */}
+              <p className="text-tertiary flex items-center font-light">
+                <FontAwesomeIcon icon={faUser} className="mr-1" />
+                Sign in
+              </p>
             </Link>
           </li>
         )}
@@ -147,8 +156,8 @@ const Navbar = () => {
             key={category.path}
             className={
               pathname === `/Products/${category.path}`
-                ? "underline text-tertiary font-light" // Fuente más fina
-                : "text-tertiary font-light" // Fuente más fina
+                ? "underline text-tertiary font-light"
+                : "text-tertiary font-light"
             }
           >
             <Link legacyBehavior href={`/Products/${category.path}`}>
@@ -164,7 +173,7 @@ const Navbar = () => {
           onClick={handleSearch}
           className="ml-2 p-2 bg-secondary text-primary rounded flex items-center justify-center transition-transform duration-300 hover:scale-110 hover:bg-secondary"
         >
-          <MagnifyingGlassIcon className="h-5 w-5 text-primary" />
+          <FontAwesomeIcon icon={faSearch} className="h-5 w-5 text-primary" />
         </button>
       </div> */}
 
