@@ -9,6 +9,7 @@ import Link from "next/link";
 
 const Page = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [disabledProducts, setDisabledProducts] = useState({});
   const user = useAppSelector((state) => state.useReducer.user);
 
   if (!user) {
@@ -27,6 +28,13 @@ const Page = () => {
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
+  };
+
+  const handleToggleProduct = (id) => {
+    setDisabledProducts((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
   };
 
   return (
@@ -61,7 +69,12 @@ const Page = () => {
               </thead>
               <tbody>
                 {filteredProducts.map((item) => (
-                  <tr key={item._id} className="border-b text-sm">
+                  <tr
+                    key={item._id}
+                    className={`border-b text-sm ${
+                      disabledProducts[item._id] ? " opacity-60" : ""
+                    }`}
+                  >
                     <td className="p-2">
                       <Image
                         width={150}
@@ -85,9 +98,21 @@ const Page = () => {
                       </Link>
                     </td>
                     <td className="p-2 text-center">
-                      <button className="bg-red-500 text-white rounded px-2 py-1 hover:bg-red-800 focus:outline-none cursor-pointer">
-                        Deshabilitar
-                      </button>
+                      {disabledProducts[item._id] ? (
+                        <button
+                          className="bg-green-500 text-white rounded px-2 py-1 hover:bg-green-800 focus:outline-none cursor-pointer"
+                          onClick={() => handleToggleProduct(item._id)}
+                        >
+                          Habilitar
+                        </button>
+                      ) : (
+                        <button
+                          className="bg-red-500 text-white rounded px-2 py-1 hover:bg-red-800 focus:outline-none cursor-pointer"
+                          onClick={() => handleToggleProduct(item._id)}
+                        >
+                          Deshabilitar
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}

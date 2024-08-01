@@ -20,7 +20,7 @@ const Page = () => {
 
   const handleInvalidar = (id) => {
     setProductos(productos.filter((producto) => producto._id !== id));
-    toast.error("Producto Invalidado");
+    toast.error("Producto no validado");
   };
 
   return (
