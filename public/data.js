@@ -17,7 +17,7 @@ export const data = {
       material: "Roble",
       size: "Grande",
       finish: "Barnizado",
-      idvendedor: 1,
+      idvendedor: 3,
     },
     {
       _id: 2,
@@ -74,7 +74,7 @@ export const data = {
       material: "Bambú",
       size: "Mediana",
       finish: "Aceitado",
-      idvendedor: 1,
+      idvendedor: 3,
     },
     {
       _id: 5,
@@ -112,7 +112,7 @@ export const data = {
       material: "Cedro",
       size: "Mediano",
       finish: "Lacado",
-      idvendedor: 1,
+      idvendedor: 3,
     },
     {
       _id: 7,
@@ -150,7 +150,7 @@ export const data = {
       material: "Arce",
       size: "Grande",
       finish: "Barnizado",
-      idvendedor: 7,
+      idvendedor: 3,
     },
     {
       _id: 9,
@@ -188,7 +188,7 @@ export const data = {
       material: "Haya",
       size: "Pequeño",
       finish: "Pintado",
-      idvendedor: 1,
+      idvendedor: 3,
     },
     {
       _id: 11,
@@ -226,7 +226,7 @@ export const data = {
       material: "Teca",
       size: "Mediano",
       finish: "Lacado",
-      idvendedor: 1,
+      idvendedor: 3,
     },
     {
       _id: 13,
@@ -264,7 +264,7 @@ export const data = {
       material: "Cedro",
       size: "Pequeño",
       finish: "Natural",
-      idvendedor: 1,
+      idvendedor: 3,
     },
     {
       _id: 15,
@@ -302,7 +302,7 @@ export const data = {
       material: "Pino",
       size: "Pequeño",
       finish: "Natural",
-      idvendedor: 5,
+      idvendedor: 3,
     },
     {
       _id: 17,
@@ -340,7 +340,7 @@ export const data = {
       material: "Roble",
       size: "Grande",
       finish: "Pulido",
-      idvendedor: 5,
+      idvendedor: 3,
     },
     {
       _id: 19,
@@ -397,7 +397,7 @@ export const data = {
       material: "Cuero",
       size: "Mediana",
       finish: "Natural",
-      idvendedor: 8,
+      idvendedor: 3,
     },
     {
       _id: 22,
@@ -416,7 +416,7 @@ export const data = {
       material: "Cuero",
       size: "Grande",
       finish: "Pulido",
-      idvendedor: 8,
+      idvendedor: 3,
     },
     {
       _id: 23,
@@ -473,7 +473,7 @@ export const data = {
       material: "Cuero",
       size: "Pequeño",
       finish: "Natural",
-      idvendedor: 5,
+      idvendedor: 3,
     },
     {
       _id: 26,
